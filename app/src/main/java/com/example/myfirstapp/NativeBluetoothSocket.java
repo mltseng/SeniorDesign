@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Created by !Michael on 2/2/2017.
+ * Created by matthes.
  */
 
 public class NativeBluetoothSocket implements BluetoothSocketWrapper {

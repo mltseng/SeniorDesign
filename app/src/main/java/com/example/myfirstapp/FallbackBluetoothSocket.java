@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import java.lang.reflect.Method;
 
 /**
- * Created by !Michael on 2/2/2017.
+ * Created by  matthes.
  */
 
 public class FallbackBluetoothSocket extends NativeBluetoothSocket {
