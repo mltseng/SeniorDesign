@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         BluetoothSocketWrapper socket = null;
         final BluetoothConnector b;
         BluetoothDevice d = null;
+        String server_response;
+        Bitmap bit;
 
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         if(pairedDevices.size() > 0){
@@ -84,11 +86,14 @@ public class MainActivity extends AppCompatActivity {
                 socket = b.connect();
                 if(msg.equals("q")){
 //                    Bitmap bit = BitmapFactory.decodeByteArray(qbuffer, 0, qbuffer.length);
-                    img.setImageBitmap(generateQR("Hello, It's Me Mario"));
+                    server_response = sendBtMsg(msg, socket);
+                    bit = generateQR(server_response);
+                    img.setImageBitmap(bit);
+                    text.setText(server_response);
                 }
                 else{
-                    String server_words = sendBtMsg(msg, socket);
-                    text.setText(server_words);
+                    server_response = sendBtMsg(msg, socket);
+                    text.setText(server_response);
                 }
                 socket.close();
             }catch(IOException|WriterException e){
