@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">S-Lock</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">LED</string>
+    <string name="button_QR">Send QR Code</string>
+    <string name="button_Finger">Fingerprint</string>
+    <string name="button_NFC">NFC</string>
+</resources>
