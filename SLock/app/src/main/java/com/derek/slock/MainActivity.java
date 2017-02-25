@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
     Button LED;
     Button NFC;
     Button QR;
+    Button Finger;
+    Button sendQR;
     ImageView img;
     TextView text;
-    //byte[] qbuffer = new byte[8192];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         LED = (Button) findViewById(R.id.LED);
         NFC = (Button) findViewById(R.id.NFC);
         QR = (Button) findViewById(R.id.QR);
+        sendQR = (Button) findViewById(R.id.scanQR);
+        Finger = (Button) findViewById(R.id.Finger);
         img = (ImageView) findViewById(R.id.imgView);
         text = (TextView) findViewById(R.id.btResult);
 
@@ -64,6 +66,16 @@ public class MainActivity extends AppCompatActivity {
                 BTConnect("q");
             }
         });
+        sendQR.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                BTConnect("scan");
+            }
+        });
+        Finger.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                BTConnect("exit");
+            }
+        });
     }
     public void BTConnect(String msg){
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -85,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             try {
                 socket = b.connect();
                 if(msg.equals("q")){
-//                    Bitmap bit = BitmapFactory.decodeByteArray(qbuffer, 0, qbuffer.length);
                     server_response = sendBtMsg(msg, socket);
                     bit = generateQR(server_response);
                     img.setImageBitmap(bit);
@@ -111,38 +122,15 @@ public class MainActivity extends AppCompatActivity {
             DataInputStream in = new DataInputStream(mmIn);
             bytes = in.read(buffer);
             String readMess = new String(buffer, 0, bytes);
-            //text.setText(readMess);
             return readMess;
         }catch(IOException e){
             e.printStackTrace();
         }
         return null;
     }
-//    public void getQR(String msg2send, BluetoothSocketWrapper socket){
-//        int byteNo;
-//        int byteNo2;
-//        int bsize = 7340;
-//        System.out.println("Here");
-//        try{
-//            OutputStream mmOut = socket.getOutputStream();
-//            mmOut.write(msg2send.getBytes());
-//            InputStream mmIn = socket.getInputStream();
-//            byteNo = mmIn.read(qbuffer);
-//            if(byteNo != - 1){
-//                byteNo2 = byteNo;
-//                while(byteNo2 != bsize){
-//                    bsize = bsize - byteNo2;
-//                    byteNo2 = mmIn.read(qbuffer, byteNo, bsize);
-//                    if(byteNo2 == -1){
-//                        break;
-//                    }
-//                }
-//            }
-//            System.out.println("Done");
-//        }catch(IOException e){
-//            e.printStackTrace();
-//        }
-//    }
+/*
+created by Alexander Farber, ZXing library
+ */
     Bitmap generateQR(String s) throws WriterException{
         BitMatrix result;
         int w = 400;

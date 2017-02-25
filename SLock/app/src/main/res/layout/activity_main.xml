@@ -37,6 +37,7 @@
         android:layout_below="@id/QR"
         android:layout_alignParentLeft="true"
         android:text="@string/button_Finger" />
+
     <TextView
         android:id="@+id/btResult"
         android:layout_width="wrap_content"
@@ -48,8 +49,17 @@
 
     <ImageView
         android:id='@+id/imgView'
-        android:layout_width="200px"
-        android:layout_height="200px"
+        android:layout_width="500px"
+        android:layout_height="500px"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/LED" />
+        android:layout_toEndOf="@+id/btResult"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/scanQR"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:text="Scan QR"
+        android:layout_below="@+id/NFC"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
